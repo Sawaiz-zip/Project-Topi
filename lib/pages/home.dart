@@ -32,10 +32,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      
+
       body: Stack(
           //alignment: Alignment.center,
           children: <Widget>[

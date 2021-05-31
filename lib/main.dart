@@ -1,19 +1,33 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:test_app/pages/Tabs.dart';
+import 'package:test_app/Tabs/homedrawer.dart';
+import 'file:///D:/flutter%20applications/test_app/lib/Tabs/Tabs.dart';
 import 'package:test_app/pages/home.dart';
-import 'package:test_app/pages/login.dart';
-import 'package:test_app/pages/Register.dart';
+import 'package:test_app/pages/authentication/login.dart';
+import 'package:test_app/pages/authentication/Register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:test_app/lib/Tabs/homedrawer.dart';
+import 'package:test_app/Tabs/sponsorAchild.dart';
 
-void main() => runApp(MaterialApp(
-      initialRoute: 'home',
-      routes: {
-        'home': (context) => Home(),
-        'login': (context) => Login(),
-        'register': (context) => Register(),
-        'tabs': (context) => Tabs(),
-      },
-    ));
 
+
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
+
+ return runApp(MaterialApp(
+
+    initialRoute: 'home',
+    routes: {
+      'home': (context) => Home(),
+      'login': (context) => Login(),
+      'register': (context) => Register(),
+      'tabs': (context) => Tabs(),
+      'sponsorAchild':(context)=>SponsorAchild(),
+    },
+  ));
+}
 // Container(
 
 // Container(
