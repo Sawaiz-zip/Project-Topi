@@ -85,7 +85,7 @@ checkauthentication()async
                   BottomNavigationBarItem(
                     icon: Icon(Icons.add_box,color: Colors.green,),
                     // ignore: deprecated_member_use
-                    title: Text('Post',style: TextStyle(color: Colors.green)),
+                    title: Text('Notification',style: TextStyle(color: Colors.green)),
 
                   ),
                   BottomNavigationBarItem(

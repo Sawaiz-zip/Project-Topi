@@ -83,10 +83,14 @@ class _HomeTabState extends State<HomeTab> {
                             Text(
                               'Project Topi',
                               style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 50,
-                                fontWeight: FontWeight.bold,
-                              ),
+
+                                  color: Colors.green,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Nothing',
+
+                                ),
+
                             ),
                             SizedBox(
                               height: 40,
@@ -178,7 +182,10 @@ class _HomeTabState extends State<HomeTab> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(context, 'bimonthly');
+
+                                },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +262,10 @@ class _HomeTabState extends State<HomeTab> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(context, 'Messbill');
+
+                                },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                         'Project \nTopi',
                         style: TextStyle(
                           fontSize: 80,
-                          color: Colors.greenAccent[900],
+                          color: Colors.green,
                           fontFamily: 'Nothing',
                           fontWeight: FontWeight.bold,
                         ),

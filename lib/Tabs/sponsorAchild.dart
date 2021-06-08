@@ -12,9 +12,12 @@ class SponsorAchild extends StatefulWidget {
 }
 
 class _SponsorAchildState extends State<SponsorAchild> {
+  bool show = false;
+
   @override
   Map info;
   int num;
+
   List<Map> infolist=[];
 void count(){
   FirebaseDatabase.instance.reference().child("SponsorAChild list").once().then((onvalue) {
@@ -46,8 +49,12 @@ Future readdata()async
         'image': key['image'],
         'name': key['name']
       };
+
 infolist.add(info);
     }
+    setState(() {
+      show=true;
+    });
 print(infolist);
   });
 }
@@ -58,152 +65,230 @@ print(infolist);
     this.count();
     this.readdata();
   }
-//   var KEYS=snap.value.keys;
-//   var DATA=snap.value;
-//   postsList.clear();
-//   for(var individualKey in KEYS )
-//     {
-//       Posts posts=new Posts
-//         (
-//           DATA[individualKey]['age'],
-//         DATA[individualKey]['amount'],
-//         DATA[individualKey]['description'],
-//         DATA[individualKey]['grade'],
-//         DATA[individualKey]['image'],
-//         DATA[individualKey]['name'],
-//
-//
-//
-//
-//
-//       );
-//       postsList.add(posts);
-//      }
-//   setState(() {
-//     print('lenght:$postsList.lenght');
-//   });
-// });
 
-  bool pressed = false;
+bool  pressed =false;
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+
     return Scaffold(
+      appBar: AppBar(
+        shadowColor: Colors.black,
+        elevation: 10,
 
-      body: new Container(
-          child: new ListView.builder(itemCount: infolist.length,
-            itemBuilder: (BuildContext context, int index) {
-            print(info);
-            Map x=infolist.elementAt(index);
-            return  PostsUI(
-                x['age'], x['amount'], x['description'],
-                x['grade'], x['image'], x['name']);
+        toolbarHeight: 50,
 
-            },
-          )
+        backgroundColor: Colors.green,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 70),
+          child: Text('Sponsor A Child'),
+        ),
+        shape: RoundedRectangleBorder(
+
+          borderRadius: BorderRadius.vertical(
+
+            bottom: Radius.circular(30),
+          ),
+        ),
+
+      ),
+      body: Container(
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        height: _size.height,
+        width: _size.width,
+        color: Colors.white,
+
+        child: Stack(
+          children:[
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                    image: AssetImage('imageAsset/projtopi.jpg.jpg'),
+                    fit: BoxFit.contain,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.3),
+                        BlendMode.dstATop)),
+              ),
+            ),
+
+            new Container(
+              child:  show==true? new ListView.builder(itemCount: infolist.length,
+                itemBuilder: (BuildContext context, int index) {
+                  print(info);
+                  Map x=infolist.elementAt(index);
+                  return  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        PostsUI(
+                            x['age'], x['amount'], x['description'],
+                            x['grade'], x['image'], x['name']),
+                      ],
+                    ),
+                  );
+
+                },
+              ): Center(child: CircularProgressIndicator()),
+          ),]
+
+        ),
       ),
     );
   }
   Widget PostsUI(String age, String amount, String description,
       String grade, String image, String name) {
-    return new Card(
-      clipBehavior: Clip.antiAlias,
-      elevation: 16,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12)),
-      child: InkWell(
-        onTap: () {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: new Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 16,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12)),
+        child: InkWell(
+          onTap: () {
 
-        },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-            Stack(
-              alignment: Alignment.bottomLeft,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10, bottom: 20),
-                  child: Text(
-                    name,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        backgroundColor: Colors.black54),
-                  ),
-                ),
-                Ink.image(
-                    image: NetworkImage(image),
-                    colorFilter: ColorFilter.mode(
-                        Colors.white, BlendMode.modulate),
-                    height: 180,
-                    fit: BoxFit.fitWidth),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.all(2),
-              child: Column(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      textStyle:
-                      const TextStyle(fontSize: 10),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        pressed = !pressed;
-                      });
-                    },
-                    child: const Text(
-                      'Description',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ),
-                  pressed == true
-                      ? Column(
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(image),
+          ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                              'Age : $age',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black54))),
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                              'Grade :$grade',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black54))),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Name: '),
+                          ),
 
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                              'Description :$description',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black54))),
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                              'Amount :$amount',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black54))),
+                  Text(
+                      name,
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          ),
+                    ),
 
                     ],
-                  )
-                      : Text('                                 '),
+                  ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('AGE: '),
+                          ),
+
+                          Text(
+                            age,
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Grade: '),
+                          ),
+
+                          Text(
+                            grade,
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+
+                        ],
+                      ),
                 ],
               ),
-            ),
-          ],
+                ],
+              ),
+              Container(
+
+                padding: EdgeInsets.all(2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextButton(
+
+onPressed:(){
+  setState(() {
+      pressed=!pressed;
+  });
+
+              },
+                          style: TextButton.styleFrom(
+                            textStyle:
+                            const TextStyle(fontSize: 10),
+                          ),
+
+                          child: const Text(
+                            'Description',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                         Visibility(
+                          visible: pressed,
+                              child: Column(
+                          children: [
+
+                              Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                      'Description :$description',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.black54))),
+
+                          ],
+                        ),
+                            )
+
+                      ],
+                    ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: RaisedButton(
+                    color: Colors.green,
+
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+
+                    onPressed: () {  },
+                    child: Text('Donate'),
+                  ),
+                )
+                  ],
+                ),
+              ),
+
+          ]
         ),
-      ),
+      ),),
     );
   }
 }

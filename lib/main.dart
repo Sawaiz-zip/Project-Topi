@@ -9,7 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test_app/lib/Tabs/homedrawer.dart';
 import 'package:test_app/Tabs/sponsorAchild.dart';
-
+import 'package:test_app/Tabs/bimonthly.dart';
+import 'package:test_app/Tabs/Messbill.dart';
 
 
 void main() async {
@@ -25,6 +26,9 @@ void main() async {
       'register': (context) => Register(),
       'tabs': (context) => Tabs(),
       'sponsorAchild':(context)=>SponsorAchild(),
+      'bimonthly':(context)=>Bimonthly(),
+      'Messbill':(context)=>Messbill(),
+
     },
   ));
 }
